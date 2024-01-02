@@ -6,9 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MetricsModule,
     RateModule,
     EmailsModule,
+    MetricsModule,
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [],

@@ -58,7 +58,6 @@ export class PrometheusService {
   }
 
   async getMetrics() {
-    // return register.getMetricsAsJSON();
     return register.metrics();
   }
 }

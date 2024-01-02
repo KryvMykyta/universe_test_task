@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+// import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { PrometheusService } from '../prometheus/prometheus.service';
 
 @Injectable()

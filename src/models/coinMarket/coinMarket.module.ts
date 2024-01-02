@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CoinMarketService } from './coinMarket.service';
-import { HttpService } from '@nestjs/axios';
+import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule],
-  providers: [HttpService],
+  imports: [ConfigModule, HttpModule],
+  providers: [CoinMarketService],
   exports: [CoinMarketService],
 })
 export class CoinMarketModule {}

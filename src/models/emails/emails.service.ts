@@ -16,7 +16,6 @@ export class EmailsService {
   }
 
   async subscribeEmail(email: string): Promise<Subscription | null> {
-    this.prometheusService.setExchangeRate(27);
     const subscribedEmail = await this.prisma.subscription.findUnique({
       where: { email },
     });

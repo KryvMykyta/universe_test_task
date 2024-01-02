@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  prometheus:
+  prometheus_worker:
     image: prom/prometheus:latest
     volumes:
       - prometheus_data:/prometheus
@@ -11,30 +11,27 @@ services:
     ports:
       - '9090:9090'
 
-  mysqldb:
-    image: mysql
-    container_name: mySqlCont
-    command: --default-authentication-plugin=mysql_native_password
+  postgresdb:
+    image: postgres
     restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQLDB_DATABASE
     env_file: ./.env
+    environment:
+      - POSTGRES_USER=$POSTGRESDB_USER
+      - POSTGRES_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
+      - POSTGRES_DB=$POSTGRESDB_DATABASE
     ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
-    expose:
-      - "3306"
+      - $POSTGRESDB_LOCAL_PORT:$POSTGRESDB_DOCKER_PORT
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/postgres
 
-  app:
-    container_name: universe_app
+  service_application:
+    container_name: service_application
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
     environment:
-      - DB_HOST=mysqldb
+      - DB_HOST=postgresdb
       - DB_USER=$MYSQLDB_USER
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
@@ -42,9 +39,10 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - mysqldb
+      - postgresdb
     stdin_open: true
     tty: true
     
 volumes: 
-  db:
+  db: {}
+  prometheus_data: {}

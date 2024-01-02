@@ -1,9 +1,10 @@
 scrape_configs:
-  - job_name: 'prometheus'
-    scrape_interval: 10s
+  - job_name: 'prometheus_worker'
+    scrape_interval: 60s
+    metrics_path: /api/metrics
     static_configs:
-      - targets: ['app:3000']
+      - targets: ['service_application:3000']
         labels:
-          service: 'app-exporter'
-          group: 'testing'
-          name: 'app-exporter'
+          service: 'prometheus_worker'
+          group: 'universe'
+          name: 'prometheus_worker'
