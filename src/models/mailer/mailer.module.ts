@@ -2,6 +2,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { MailService } from './mailer.service';
 import { ConfigService } from '@nestjs/config';
+import { PrometheusModule } from '../prometheus/prometheus.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
+    PrometheusModule,
   ],
   providers: [MailService],
   exports: [MailService],

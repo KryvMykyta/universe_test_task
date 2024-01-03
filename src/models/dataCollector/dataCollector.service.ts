@@ -1,12 +1,14 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { PrometheusService } from '../prometheus/prometheus.service';
 
 @Injectable()
-export class CoinMarketService {
+export class DataCollectorService {
   constructor(
     private readonly httpService: HttpService,
     private readonly config: ConfigService,
+    private readonly prometheus: PrometheusService,
   ) {}
 
   async getBitcoinUsd(): Promise<number> {
@@ -31,5 +33,13 @@ export class CoinMarketService {
       (item) => item.ccy === 'USD' && item.base_ccy === 'UAH',
     )[0];
     return uahExchangeRate.buy;
+  }
+
+  async getLastRate(): Promise<number> {
+    const btcToUsdRate = await this.getBitcoinUsd();
+    const uahExchangeRate = await this.getUsdUah();
+    const rate = btcToUsdRate * uahExchangeRate;
+    this.prometheus.setExchangeRate(rate);
+    return rate;
   }
 }

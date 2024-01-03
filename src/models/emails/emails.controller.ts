@@ -10,8 +10,8 @@ import {
   NotFoundException,
   ConflictException,
 } from '@nestjs/common';
-import { Subscription } from '@prisma/client';
 import { Response } from 'express';
+import { SubscriptionCreateDto } from './subscription.model';
 
 @Controller('/api/emails')
 export class EmailsController {
@@ -25,7 +25,7 @@ export class EmailsController {
 
   @Delete()
   async unsubscribeEmail(
-    @Body() emailData: { email: string },
+    @Body() emailData: SubscriptionCreateDto,
     @Res() res: Response,
   ) {
     try {
@@ -39,7 +39,10 @@ export class EmailsController {
   }
 
   @Post()
-  async subscribeEmail(@Body() emailData: Subscription, @Res() res: Response) {
+  async subscribeEmail(
+    @Body() emailData: SubscriptionCreateDto,
+    @Res() res: Response,
+  ) {
     try {
       const { email } = emailData;
       const result = await this.emailsService.subscribeEmail(email);

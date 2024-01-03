@@ -2,14 +2,12 @@ import { Module } from '@nestjs/common';
 import { RateController } from './rate.controller';
 import { RateService } from './rate.service';
 import { PrismaService } from 'src/prisma.service';
-import { MailService } from '../mailer/mailer.service';
 import { MailModule } from '../mailer/mailer.module';
-import { PrometheusModule } from '../prometheus/prometheus.module';
-import { CoinMarketModule } from '../coinMarket/coinMarket.module';
+import { DataCollectorModule } from '../dataCollector/dataCollector.module';
 
 @Module({
-  imports: [MailModule, PrometheusModule, CoinMarketModule],
+  imports: [MailModule, DataCollectorModule],
   controllers: [RateController],
-  providers: [RateService, PrismaService, MailService],
+  providers: [RateService, PrismaService],
 })
 export class RateModule {}

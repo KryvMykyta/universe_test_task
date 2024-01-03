@@ -16,9 +16,9 @@ export class RateController {
   @Get()
   async getRate(@Res() res: Response) {
     try {
-      const rate = await this.rateService.getLastRate();
+      const rate = await this.rateService.getRate();
       if (!rate) throw new NotFoundException();
-      return res.status(HttpStatus.OK).send(rate);
+      return res.status(HttpStatus.OK).json(rate);
     } catch (err) {
       throw err;
     }
