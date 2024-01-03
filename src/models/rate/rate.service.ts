@@ -1,6 +1,6 @@
 import { DataCollectorService } from '../dataCollector/dataCollector.service';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/models/prismadb/prisma.service';
 import { MailService } from '../mailer/mailer.service';
 
 @Injectable()

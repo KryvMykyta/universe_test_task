@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/models/prismadb/prisma.service';
 import { DataCollectorService } from '../dataCollector/dataCollector.service';
 import { MailService } from '../mailer/mailer.service';
 

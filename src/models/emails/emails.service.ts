@@ -1,5 +1,5 @@
 import { Subscription } from '@prisma/client';
-import { PrismaService } from './../../prisma.service';
+import { PrismaService } from '../prismadb/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { PrometheusService } from '../prometheus/prometheus.service';
 

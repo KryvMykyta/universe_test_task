@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RateController } from './rate.controller';
 import { RateService } from './rate.service';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/models/prismadb/prisma.service';
 import { MailModule } from '../mailer/mailer.module';
 import { DataCollectorModule } from '../dataCollector/dataCollector.module';
 

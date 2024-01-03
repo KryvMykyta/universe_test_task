@@ -1,6 +1,21 @@
-# Universe test task
+# Universe Test Task
 
-## How to set up
+## How to Set Up
 
-### To start the application firstly you should configure your .env file regarding to .env.example. Optionally you can also change prometheus config in prometheus.yml file. After that you can freely run 'docker compose up -d' command to run docker container. All service application API endpoints were done regarding to sended swagger documentation. Worker application(prometheus) by default scraping metrics every 60s from service endpoint and storing it to internal database, which can be accessed by WebUI in prometheus docker container with special queries. Also were done optional tasks that should send exchange rates daily and fetch exchange rate hourly to observe changes.
+1. Configure your application by creating a `.env` file based on the provided `.env.example`.
 
+2. Optionally, modify the Prometheus configuration in the `prometheus.yml` file if needed.
+
+3. Run the following command to start the Docker containers:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+   This command will launch the containers in detached mode.
+
+4. All service application API endpoints are designed based on the Swagger documentation provided. You can access the API as per the documentation.
+
+5. The worker application (Prometheus) automatically scrapes metrics every 60 seconds from the service endpoint and stores them in an internal database. The WebUI in the Prometheus Docker container allows you to query the stored metrics using special queries.
+
+6. Optional tasks have been implemented, including sending daily exchange rates and fetching exchange rates hourly to observe changes.

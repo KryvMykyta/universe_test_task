@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/models/prismadb/prisma.service';
 import { SchedulerService } from './scheduler.service';
 import { DataCollectorModule } from '../dataCollector/dataCollector.module';
 import { MailModule } from '../mailer/mailer.module';
