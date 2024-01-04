@@ -11,7 +11,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { SubscriptionCreateDto } from './subscription.model';
+import { SubscriptionCreateDto } from '../dao/subscription/subscription.model';
 
 @Controller('/api/emails')
 export class EmailsController {

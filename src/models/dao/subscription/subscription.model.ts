@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { IsEmail } from 'class-validator';
 
-export class Subscription implements Prisma.SubscriptionCreateInput {
+export class SubscriptionCreateInput implements Prisma.SubscriptionCreateInput {
   email: string;
 }
 

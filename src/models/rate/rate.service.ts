@@ -1,14 +1,16 @@
 import { DataCollectorService } from '../dataCollector/dataCollector.service';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/models/prismadb/prisma.service';
 import { MailService } from '../mailer/mailer.service';
+import { SubscriptionDao } from '../dao/subscription/subscription.dao';
+import { RateDao } from '../dao/rate/rate.dao';
 
 @Injectable()
 export class RateService {
   constructor(
-    private prisma: PrismaService,
     private mailService: MailService,
     private dataCollector: DataCollectorService,
+    private subscriptionDao: SubscriptionDao,
+    private rateDao: RateDao,
   ) {}
 
   async getRate(): Promise<number> {
@@ -17,9 +19,7 @@ export class RateService {
   }
 
   async sendEmails() {
-    const subscriptions = await this.prisma.subscription.findMany({
-      where: { status: 'SUBSCRIBED' },
-    });
+    const subscriptions = await this.subscriptionDao.getActiveSubscriptions();
     const exchangeRate = await this.dataCollector.getLastRate();
     const subject = `Rates for ${new Date().toLocaleDateString()})}`;
     const text = `New rate: ${exchangeRate}`;
@@ -27,9 +27,7 @@ export class RateService {
       (subscription) => subscription.email,
     );
     await this.mailService.bulkSendEmail(activeEmails, subject, text);
-    await this.prisma.rate.create({
-      data: { rate: exchangeRate },
-    });
+    await this.rateDao.createRateRecord({ rate: exchangeRate });
     return { message: text, activeEmails };
   }
 }
